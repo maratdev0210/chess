@@ -20,6 +20,8 @@ function fillBoard(rows) {
         let columns = rows[row].children;
         for (let col = 0; col < 8; ++col) {
             let piece = document.createElement('img');
+            piece.setAttribute('draggable', 'true');
+            piece.setAttribute('class', 'piece');
             if (row == 1) {
                 piece.setAttribute('src', BLACK_PAWN);
                 columns[col].appendChild(piece);
@@ -95,3 +97,26 @@ window.addEventListener('load', () => {
     fillBoard(rows);
 });
 
+window.addEventListener('load', () => {
+    let chessPieceList = document.querySelectorAll('.board img');
+    let chessPiecePicked;
+    chessPieceList.forEach((chessPiece) => {
+        //let chessPiecePicked;   // call Event listener on the picked chess piece
+        chessPiece.addEventListener('drag', (event) => {
+            chessPiecePicked = event.target;
+        });
+        let chessTileList = document.querySelectorAll('.board div div');
+        chessTileList.forEach((chessTile) => {
+            chessTile.addEventListener('dragover', (event) => {
+                // prevent default to allow drop
+                event.preventDefault();
+            });
+            chessTile.addEventListener('drop', (event) => {
+                if (event.target.className == 'white' || event.target.className == 'black') {
+                    chessPiecePicked.parentNode.removeChild(chessPiecePicked);
+                    event.target.appendChild(chessPiecePicked);
+                } 
+            });
+        });
+    });
+});
