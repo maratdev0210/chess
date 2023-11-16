@@ -99,7 +99,7 @@ window.addEventListener('load', () => {
 
 window.addEventListener('load', () => {
     let chessPieceList = document.querySelectorAll('.board img');
-    let chessPiecePicked, chessPiecePlaced;    
+    let chessPiecePicked;
     chessPieceList.forEach((chessPiece) => {
         //let chessPiecePicked;   // call Event listener on the picked chess piece
         chessPiece.addEventListener('drag', (event) => {
@@ -109,38 +109,14 @@ window.addEventListener('load', () => {
         chessTileList.forEach((chessTile) => {
             chessTile.addEventListener('dragover', (event) => {
                 // prevent default to allow drop
-                chessPiecePlaced = event.target;
                 event.preventDefault();
-            }); 
+            });
             chessTile.addEventListener('drop', (event) => {
-                //console.log(event.target); 
-                /*
-                    if event.target.className is 'piece', then:
-                        1. remove chess Piece from the original position
-                        2. remove chess piece from the ending position (event.target.removeChild())
-                */
-                event.preventDefault();
                 if (event.target.className == 'white' || event.target.className == 'black') {
                     chessPiecePicked.parentNode.removeChild(chessPiecePicked);
                     event.target.appendChild(chessPiecePicked);
-                    
-                } else if (event.target.className == 'piece') {
-                    if (chessPiecePlaced.parentNode !== null) {
-                        chessPiecePlaced.parentNode.replaceChild(chessPiecePicked, chessPiecePlaced);
-                    }
-                    //chessPiecePlaced.parentNode.replaceChild(chessPiecePicked, chessPiecePlaced);
-                    
-                    //chessPiecePicked.parentNode.removeChild(chessPiecePicked);
-                    //event.target.parentNode.replaceChild(chessPiecePicked, chessPiecePlaced);
-                    console.log(chessPiecePlaced.parentNode);
-                    //chessPiecePlaced.parentNode.removeChild(chessPiecePlaced);
-                    
-                    //event.target.parentNode.appendChild(chessPiecePicked);
-                    //console.log(event.target.parentNode.removeChild(event.target));
                 } 
             });
-            
         });
     });
 });
-
