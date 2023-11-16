@@ -99,7 +99,7 @@ window.addEventListener('load', () => {
 
 window.addEventListener('load', () => {
     let chessPieceList = document.querySelectorAll('.board img');
-    let chessPiecePicked;
+    let chessPiecePicked, chessPiecePlaced;    
     chessPieceList.forEach((chessPiece) => {
         //let chessPiecePicked;   // call Event listener on the picked chess piece
         chessPiece.addEventListener('drag', (event) => {
@@ -109,12 +109,19 @@ window.addEventListener('load', () => {
         chessTileList.forEach((chessTile) => {
             chessTile.addEventListener('dragover', (event) => {
                 // prevent default to allow drop
+                chessPiecePlaced = event.target;
                 event.preventDefault();
-            });
+            }); 
             chessTile.addEventListener('drop', (event) => {
+                event.preventDefault();
                 if (event.target.className == 'white' || event.target.className == 'black') {
                     chessPiecePicked.parentNode.removeChild(chessPiecePicked);
                     event.target.appendChild(chessPiecePicked);
+                    
+                } else if (event.target.className == 'piece') {
+                    if (chessPiecePlaced.parentNode !== null) {
+                        chessPiecePlaced.parentNode.replaceChild(chessPiecePicked, chessPiecePlaced);
+                    }
                 } 
             });
         });
