@@ -18,81 +18,81 @@ let board = document.querySelector('.board');
 function fillBoard(rows) {
     for (let row in rows) {
         let columns = rows[row].children;
-        for (let col = 0; col < 8; ++col) {
+        for (let col = 1; col <= 8; ++col) {
             let piece = document.createElement('img');
             piece.setAttribute('draggable', 'true');
             piece.setAttribute('class', 'piece');
             if (row == 1) {
                 piece.setAttribute('src', BLACK_PAWN);
-                columns[col].appendChild(piece);
+                columns[col - 1].appendChild(piece);
                 continue;
             }
             if (row == 2) {
                 piece.setAttribute('src', WHITE_PAWN);
-                columns[col].appendChild(piece);
+                columns[col - 1].appendChild(piece);
                 continue;
             }
-            if (col == 0 || col == 7) {
+            if (col == 1 || col == 8) {
                 if (row == 0) {
                     piece.setAttribute('src', BLACK_ROOK);
                 } else if (row == 3) {
                     piece.setAttribute('src', WHITE_ROOK);
                 }
             }
-            else if (col == 1 || col == 6) {
+            else if (col == 2 || col == 7) {
                 if (row == 0) {
                     piece.setAttribute('src', BLACK_KNIGHT);
                 } else if (row == 3) {
                     piece.setAttribute('src', WHITE_KNIGHT);
                 }
-            } else if (col == 2 || col == 5) {
+            } else if (col == 3 || col == 6) {
                 if (row == 0) {
                     piece.setAttribute('src', BLACK_BISHOP);
                 } else if (row == 3) {
                     piece.setAttribute('src', WHITE_BISHOP);
                 }
-            } else if (col == 3) {
+            } else if (col == 4) {
                 if (row == 0) {
                     piece.setAttribute('src', BLACK_QUEEN);
                 } else if (row == 3) {
                     piece.setAttribute('src', WHITE_QUEEN);
                 }
-            } else if (col == 4) {
+            } else if (col == 5) {
                 if (row == 0) {
                     piece.setAttribute('src', BLACK_KING);
                 } else if (row == 3) {
                     piece.setAttribute('src', WHITE_KING);
                 }
             }
-            columns[col].appendChild(piece);
+            columns[col - 1].appendChild(piece);
         }
     }
 }
 
 
 window.addEventListener('load', () => {
-    for (let row = 0; row < 8; ++row) {
+    for (let row = 8; row >= 1; --row) {
         let rowSpan = document.createElement('div');
         rowSpan.setAttribute('class', `row${row}`);
-        for (let col = 0; col < 8; ++col) {
+        for (let col = 1; col <= 8; ++col) {
             let tile = document.createElement('div');
             tile.setAttribute('class', 'white');     // default tile's color is white
-            if ((row + col) % 2 == 1) {
+            if ((row + col) % 2 == 0) {
                 tile.setAttribute('class', 'black');
             } 
-            if (row == 7) {
+            if (row == 1) {
                 let notationHold = document.createElement('span');
-                notationHold.textContent = notation[col];
+                notationHold.textContent = notation[col - 1];
                 tile.appendChild(notationHold);
             }
             rowSpan.appendChild(tile);
         }
         board.appendChild(rowSpan);
     }
-    let rowEight = document.querySelector('.board .row0');
-    let rowSeven = document.querySelector('.board .row1');
-    let rowTwo = document.querySelector('.board .row6');
-    let rowOne = document.querySelector('.board .row7');
+    let rowEight = document.querySelector('.board .row8');
+    let rowSeven = document.querySelector('.board .row7');
+    let rowTwo = document.querySelector('.board .row2');
+    let rowOne = document.querySelector('.board .row1');
     let rows = [rowEight, rowSeven, rowTwo, rowOne];
     fillBoard(rows);
 });
