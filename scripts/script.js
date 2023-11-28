@@ -10,6 +10,8 @@ const WHITE_BISHOP = './assets/pieces/white/Chess_blt45.svg';
 const WHITE_QUEEN = './assets/pieces/white/Chess_qlt45.svg';
 const WHITE_KING = './assets/pieces/white/Chess_klt45.svg';
 const WHITE_PAWN = './assets/pieces/white/Chess_plt45.svg';
+const notation = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+
 
 const chessPieces = {
     row8: [BLACK_ROOK, BLACK_KNIGHT, BLACK_BISHOP, BLACK_QUEEN, BLACK_KING, BLACK_BISHOP, BLACK_KNIGHT, BLACK_ROOK],
@@ -26,6 +28,11 @@ function addPieces(board, currentRow) {
             let piece = document.createElement('img');
             piece.setAttribute('src', chessPieces[rowNumber][column]);
             tile.appendChild(piece);
+            if (rowNumber === 'row1') {
+                let notationLetter = document.createElement('span');
+                notationLetter.textContent = notation[column];
+                tile.appendChild(notationLetter);
+            }
         });
     } 
 }
