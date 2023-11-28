@@ -28,13 +28,3 @@
 .white {
     background-color: #F0D9B5;
 }
-
-.row7 div{
-    display: flex;
-    flex-direction: column-reverse;
-}
-
-.row7 div img {
-    position: relative;
-    top: 20px;
-} 
