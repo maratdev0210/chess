@@ -12,12 +12,15 @@ const WHITE_KING = './assets/pieces/white/Chess_klt45.svg';
 const WHITE_PAWN = './assets/pieces/white/Chess_plt45.svg';
 const notation = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
-
 const chessPieces = {
     row8: [BLACK_ROOK, BLACK_KNIGHT, BLACK_BISHOP, BLACK_QUEEN, BLACK_KING, BLACK_BISHOP, BLACK_KNIGHT, BLACK_ROOK],
     row7: [BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN],
     row2: [WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN],
     row1: [WHITE_ROOK, WHITE_KNIGHT, WHITE_BISHOP, WHITE_QUEEN, WHITE_KING, WHITE_BISHOP, WHITE_KNIGHT, WHITE_ROOK]
+};
+
+const pieceNotation = {
+    row: ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
 };
 
 function addPieces(board, currentRow) {
@@ -32,6 +35,9 @@ function addPieces(board, currentRow) {
                 let notationLetter = document.createElement('span');
                 notationLetter.textContent = notation[column];
                 tile.appendChild(notationLetter);
+            } 
+            if (rowNumber === 'row1' || rowNumber === 'row8') {
+                piece.setAttribute('class', pieceNotation['row'][column]);
             }
         });
     } 
@@ -43,7 +49,8 @@ function generateBoard(board) {
         currentRow.setAttribute('class', `row${row}`);
         for (let col = 1; col <= 8; ++col) {
             let tile = document.createElement('div');
-            (row + col) % 2 == 0 ? tile.setAttribute('class', 'black') : tile.setAttribute('class', 'white');
+            let tileIndex = notation[col - 1] + row.toString();
+            (row + col) % 2 == 0 ? tile.setAttribute('class', `black ${tileIndex}`) : tile.setAttribute('class', `white ${tileIndex}`);
             currentRow.appendChild(tile);
         }
         board.appendChild(currentRow);
