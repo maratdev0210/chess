@@ -28,13 +28,3 @@
 .white {
     background-color: #F0D9B5;
 }
-
-.row1 div {
-    display: flex;
-    flex-direction: column;
-}
-
-.row1 span {
-    position: relative;
-    bottom: 20px;
-}

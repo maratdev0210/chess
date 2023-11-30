@@ -31,11 +31,6 @@ function addPieces(board, currentRow) {
             let piece = document.createElement('img');
             piece.setAttribute('src', chessPieces[rowNumber][column]);
             tile.appendChild(piece);
-            if (rowNumber === 'row1') {
-                let notationLetter = document.createElement('span');
-                notationLetter.textContent = notation[column];
-                tile.appendChild(notationLetter);
-            } 
             if (rowNumber === 'row1' || rowNumber === 'row8') {
                 piece.setAttribute('class', pieceNotation['row'][column]);
             }
