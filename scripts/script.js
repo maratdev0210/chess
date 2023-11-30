@@ -56,3 +56,36 @@ function generateBoard(board) {
 let board = document.querySelector('.board');
 
 window.addEventListener('load', generateBoard(board));
+
+
+function placePiece(chessPiece, tile) {
+    if (chessPiece !== null) {
+        tile.appendChild(chessPiece);
+    }
+}
+
+let tiles = document.querySelectorAll('.board div div');
+let chessPiece = null;
+tiles.forEach(function(tile) {
+    tile.addEventListener('click', (event) => {
+        if (event.target.tagName === 'IMG') {
+            if (chessPiece === null) {
+                chessPiece = event.target;
+            } else {
+                let chessPieceToCapture = event.target.getAttribute('src');
+                let chessPieceToMove = chessPiece.getAttribute('src');
+                let canCapture = (chessPieceToCapture.includes('black') && chessPieceToMove.includes('white')) ||
+                                 (chessPieceToCapture.includes('white') && chessPieceToMove.includes('black'));
+                if (canCapture) {
+                    let tileToPlace = event.target.parentNode;
+                    event.target.parentNode.removeChild(event.target);
+                    placePiece(chessPiece, tileToPlace);
+                } 
+                chessPiece = null;
+            }
+        } else {
+            placePiece(chessPiece, event.target);
+            chessPiece = null;
+        }
+    })
+});
