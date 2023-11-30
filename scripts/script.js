@@ -64,6 +64,12 @@ function placePiece(chessPiece, tile) {
     }
 }
 
+function markPiece(chessPiece, tile) {
+    if (chessPiece !== null) {
+        tile.classList.add('markPiece');
+    }
+}
+
 let tiles = document.querySelectorAll('.board div div');
 let chessPiece = null;
 tiles.forEach(function(tile) {
@@ -81,11 +87,14 @@ tiles.forEach(function(tile) {
                     event.target.parentNode.removeChild(event.target);
                     placePiece(chessPiece, tileToPlace);
                 } 
+                chessPiece.classList.remove('markPiece');
                 chessPiece = null;
             }
         } else {
             placePiece(chessPiece, event.target);
+            chessPiece.classList.remove('markPiece');
             chessPiece = null;
         }
+        markPiece(chessPiece, event.target);
     })
 });
