@@ -33,6 +33,8 @@ function addPieces(board, currentRow) {
             tile.appendChild(piece);
             if (rowNumber === 'row1' || rowNumber === 'row8') {
                 piece.setAttribute('class', pieceNotation['row'][column]);
+            } else if (rowNumber === 'row2' || rowNumber === 'row7') {
+                piece.setAttribute('class', 'p');
             }
         });
     } 
@@ -77,6 +79,7 @@ tiles.forEach(function(tile) {
         if (event.target.tagName === 'IMG') {
             if (chessPiece === null) {
                 chessPiece = event.target;
+                movePawn(chessPiece, event.target.parentNode);
             } else {
                 let chessPieceToCapture = event.target.getAttribute('src');
                 let chessPieceToMove = chessPiece.getAttribute('src');
@@ -91,10 +94,54 @@ tiles.forEach(function(tile) {
                 chessPiece = null;
             }
         } else {
-            placePiece(chessPiece, event.target);
+            movePawn(chessPiece, event.target);
+            //placePiece(chessPiece, event.target);
             chessPiece.classList.remove('markPiece');
             chessPiece = null;
         }
         markPiece(chessPiece, event.target);
     })
 });
+
+
+function movePawn(chessPiece, tileToPlace) {
+    if (chessPiece !== null && chessPiece.classList[0] === 'p') {
+        let pieceColor = chessPiece.getAttribute('src').includes('black') ? 'black' : 'white';
+        let tileOptions = [];     // store on which tile the piece can move
+        let tile = chessPiece.parentNode.classList[1];      // select the tile where the piece stands
+        let rank = Number(tile[1]);
+        if (pieceColor === 'white') {
+            if (rank == 2) {
+                tileOptions[0] = tile[0] + String(rank + 1);
+                tileOptions[1] = tile[0] + String(rank + 2);
+            } else {
+                if (rank < 8) {
+                    tileOptions[0] = tile[0] + String(rank + 1);
+                }
+            }
+        } else {
+            if (rank == 7) {
+                tileOptions[0] = tile[0] + String(rank - 1);
+                tileOptions[1] = tile[0] + String(rank - 2);
+            } else if (rank < 7 && rank > 1) {
+                tileOptions[0] = tile[0] + String(rank - 1);
+            }
+        }
+        markTheTile(tiles, tileOptions, 1);
+        if (tileOptions.includes(tileToPlace.classList[1])) {
+            markTheTile(tiles, tileOptions, 0);
+            tileToPlace.appendChild(chessPiece);
+        }
+    }
+}
+
+
+function markTheTile(tiles, tileOptions, markMode) {
+    tiles.forEach(function(tile) {
+        if (tileOptions.includes(tile.classList[1]) && markMode == 1) {
+            tile.classList.add('marked');
+        } else if (tileOptions.includes(tile.classList[1]) && markMode == 0) {
+            tile.classList.remove('marked');
+        }
+    })
+}
