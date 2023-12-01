@@ -131,24 +131,21 @@ function moveWhitePawn(chessPiece, tile) {
     let index = notation.findIndex((element) => {
         return element === file;
     });
+
+    let dir = 0;
     if (index == 0) {
-        let nextTile = document.getElementsByClassName(notation[index + 1] + String(rank + 1));
-        if (nextTile[0].hasChildNodes()) {
-            // check if the piece is white or black
-            let pieceToCapture = nextTile[0].firstChild.getAttribute('src');
-            if (pieceToCapture.includes('black')) {
-                tileOptions.push(notation[index + 1] + String(rank + 1));
-            }
-        }
+        dir = 1;
     } else if (index == 7) {
-        let nextTile = document.getElementsByClassName(notation[index - 1] + String(rank + 1));
-        if (nextTile[0].hasChildNodes()) {
-            let pieceToCapture = nextTile[0].firstChild.getAttribute('src');
-            if (pieceToCapture.includes('black')) {
-                tileOptions.push(notation[index - 1] + String(rank + 1));
-            }
+        dir = -1;
+    } 
+    let nextTile = document.getElementsByClassName(notation[index + dir] + String(rank + 1));
+    if (nextTile[0].hasChildNodes()) {
+        let pieceToCapture = nextTile[0].firstChild.getAttribute('src');
+        if (pieceToCapture.includes('black')) {
+            tileOptions.push(notation[index + dir] + String(rank + 1));
         }
-    } else {
+    }
+    if (index > 0 && index < 7) {
         let nextTile = document.getElementsByClassName(notation[index + 1] + String(rank + 1));
         if (nextTile[0].hasChildNodes()) {
             let pieceToCapture = nextTile[0].firstChild.getAttribute('src');
@@ -164,17 +161,17 @@ function moveWhitePawn(chessPiece, tile) {
             }
         }
     }
+    let pieceColor = chessPiece.getAttribute('src').includes('white');
     // determine if the tile we are to set the chess piece matches the chess rules
-    if (tileOptions.includes(tile.classList[1]) && chessPiece.classList[0] == 'p') {
+    if (tileOptions.includes(tile.classList[1]) && chessPiece.classList[0] == 'p' && pieceColor) {
         if (tile.hasChildNodes()) {
             tile.removeChild(tile.firstChild);
             tile.appendChild(chessPiece);
         } else {
             tile.appendChild(chessPiece);
         }
-    } else {
-        return;
-    }
+    } 
+    chessPiece.classList.remove('markPiece');
 }
 
 function moveBlackPawn(chessPiece, tile) {
@@ -203,24 +200,20 @@ function moveBlackPawn(chessPiece, tile) {
     let index = notation.findIndex((element) => {
         return element === file;
     });
+    let dir = 0;
     if (index == 0) {
-        let nextTile = document.getElementsByClassName(notation[index + 1] + String(rank - 1));
-        if (nextTile[0].hasChildNodes()) {
-            // check if the piece is white or black
-            let pieceToCapture = nextTile[0].firstChild.getAttribute('src');
-            if (pieceToCapture.includes('white')) {
-                tileOptions.push(notation[index + 1] + String(rank - 1));
-            }
-        }
+        dir = 1;
     } else if (index == 7) {
-        let nextTile = document.getElementsByClassName(notation[index - 1] + String(rank - 1));
-        if (nextTile[0].hasChildNodes()) {
-            let pieceToCapture = nextTile[0].firstChild.getAttribute('src');
-            if (pieceToCapture.includes('white')) {
-                tileOptions.push(notation[index - 1] + String(rank - 1));
-            }
+        dir = -1;
+    } 
+    let nextTile = document.getElementsByClassName(notation[index + dir] + String(rank - 1));
+    if (nextTile[0].hasChildNodes()) {
+        let pieceToCapture = nextTile[0].firstChild.getAttribute('src');
+        if (pieceToCapture.includes('white')) {
+            tileOptions.push(notation[index + dir] + String(rank - 1));
         }
-    } else {
+    }
+    if (index > 0 && index < 7) {
         let nextTile = document.getElementsByClassName(notation[index + 1] + String(rank - 1));
         if (nextTile[0].hasChildNodes()) {
             let pieceToCapture = nextTile[0].firstChild.getAttribute('src');
@@ -236,15 +229,16 @@ function moveBlackPawn(chessPiece, tile) {
             }
         }
     }
+    let pieceColor = chessPiece.getAttribute('src').includes('black');
     // determine if the tile we are to set the chess piece matches the chess rules
-    if (tileOptions.includes(tile.classList[1]) && chessPiece.classList[0] == 'p') {
+    if (tileOptions.includes(tile.classList[1]) && chessPiece.classList[0] == 'p' && pieceColor) {
         if (tile.hasChildNodes()) {
             tile.removeChild(tile.firstChild);
             tile.appendChild(chessPiece);
         } else {
             tile.appendChild(chessPiece);
         }
-    } else {
-        return;
-    }
+    } 
+    chessPiece.classList.remove('markPiece');
+    return;
 }
