@@ -1,0 +1,30 @@
+div.pieces {
+  margin-top: 50px;
+}
+div.pieces .white, div.pieces .black {
+  display: flex;
+  gap: 25px;
+}
+
+.turn {
+  width: 20vw;
+}
+.turn span {
+  font-family: Arial, sans-serif;
+  font-size: 1.3rem;
+  display: block;
+}
+.turn label {
+  font-family: Arial, sans-serif;
+  font-size: 1.4rem;
+}
+
+.loadPosition button {
+  font-family: Arial, sans-serif;
+  font-size: 1.5rem;
+  background-color: blue;
+  color: white;
+  border: none;
+}
+
+/*# sourceMappingURL=boardEditor.css.map */

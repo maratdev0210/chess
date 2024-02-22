@@ -1,0 +1,82 @@
+body {
+  margin: 0 0;
+  font-size: 16px;
+  height: 500vh;
+}
+
+nav.sidebar-components {
+  border: solid 1px black;
+  height: 100vh;
+  width: 15vw;
+  background-color: #457b9d;
+  position: fixed;
+}
+nav.sidebar-components div.major-component {
+  font-family: Arial, sans-serif;
+  font-size: 1.9rem;
+  color: #f1faee;
+  padding-top: 20px;
+  padding-left: 5px;
+}
+nav.sidebar-components ul.components {
+  color: #edede9;
+  list-style-type: none;
+  font-size: 1.3rem;
+}
+nav.sidebar-components ul.components li {
+  padding-top: 20px;
+}
+nav.sidebar-components a {
+  color: #edede9;
+  text-decoration: none;
+}
+
+main {
+  position: absolute;
+  left: 20vw;
+  font-family: Arial, sans-serif;
+}
+main h2 {
+  color: #1d3557;
+  font-size: 1.8rem;
+  font-family: Arial, sans-serif;
+}
+main .board span, main .gameState span {
+  font-style: italic;
+  font-size: 1.3rem;
+  font-family: Helvetica, sans-serif;
+}
+main .board .properties li, main .gameState .properties li {
+  font-size: 1.4rem;
+  margin-left: 2vw;
+}
+main .board .properties li a, main .gameState .properties li a {
+  color: black;
+  text-decoration: none;
+}
+main .board .properties-description, main .gameState .properties-description {
+  margin-top: 50px;
+}
+main .board .properties-description p, main .gameState .properties-description p {
+  width: 70vw;
+  margin-bottom: 4px;
+  margin-left: 50px;
+  font-size: 1.2rem;
+}
+main .board .properties-description p code, main .gameState .properties-description p code {
+  margin-left: 4px;
+}
+main .board .properties-description li, main .gameState .properties-description li {
+  font-size: 1.2rem;
+}
+main .board .properties-description li code, main .gameState .properties-description li code {
+  margin-left: 4px;
+}
+main .board .properties-description code, main .gameState .properties-description code {
+  margin-left: 50px;
+}
+main .board .properties-description ol, main .gameState .properties-description ol {
+  margin-left: 50px;
+}
+
+/*# sourceMappingURL=docs.css.map */

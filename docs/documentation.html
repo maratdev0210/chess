@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/docs.css">
+    <script src="scripts/sidebar.js" defer></script>
+    <title>Docs</title>
+</head>
+<body>
+    <!-- 
+        TO-DO:
+            1. Create a sidebar for all major components
+            2. Create a detailed description for each component
+            3. Add the links for better navigation
+
+    -->
+    <nav class="sidebar-components">
+        <div class="major-component">
+            <span>Major Components</span>
+        </div>
+        <ul class="components" hidden>
+            <li><a href="#board-component">Board Component</a></li>
+            <li><a href="#game-state-component">Game State Component</a></li>
+            <li><a href="#moves-component">Legal Moves Component<a></li>
+            <li><a href="#move-rules-component">Move Rules Component</a></li>
+            <li><a href="#notationc-component">Notation</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section class="board" id="board-component">
+            <h2>Board Component</h2>
+            <div class="description">
+                <h3>Description:</h3>
+                <p>The Board class represents the chess board, the position of pieces and methods related to constucing the board</p>
+            </div>
+            <div class="properties">
+                List of properties:
+                <ul>
+                    <li><a href="#constructor-board">The constuctor(<span>position</span>)</a></li>
+                    <li><a href="#getPosition">getPosition()</a></li>
+                    <li><a href="#updatePosition">updatePosition(<span>move</span>)</a></li>
+                    <li><a href="#displayBoard">displayBoard()</a></li>
+                    <li><a href="#getPiece">getPiece(square)</a></li>
+                </ul>
+            </div>
+            <div class="properties-description">
+                <div class="constructor">
+                    <h3 id="constructor-board">constructor(<span>position</span>):</h3>
+                    <p>
+                        Returns new object of type Board. The argument list passes the chess position which is represented as the 
+                        following object structure: </p> <code> position:
+                        [{color: 'white' || 'black', piece: 'pawn' || 'knight' || 'bishop' || 'king' || 'queen' || 'rook', position: algrebraic chess notatiion position}]</code>
+                    <p>
+                        creates a matrix version of the board from the given position. The matrix representation of the board is used for finding all the legal moves.
+                    </p>
+                </div>
+                <div class="getPosition">
+                    <h3 id="getPosition">Board.getPosition()</h3>
+                    <p>
+                        Returns the current position from the instance of Board class. The returned position represents the object <code>position</code> and matrix representation 
+                        of the current position of instance Board.
+                    </p>
+                </div>
+                <div class="updatePosition">
+                    <h3 id="updatePosition">Board.updatePosition(move)</h3>
+                    <p>
+                        Returns new Board class based on the given <code>move*</code>. The method is called if and only if the given move is legal.  
+                    </p>
+                    <p>
+                        The <code>move</code> object represents the following structure:</p> <code>move: 
+                           {piece: 'pawn' || 'knight' || 'bishop' || 'rook' || 'king' || 'queen', from: initial position of the piece, to: final position of the piece} 
+                        </code>
+                    <p>
+                        The algorithm for updating the position: 
+                        <ol>
+                            <li>Search for the given position given in <code>from</code> property of <code>move</code> object.</li>
+                            <li>Delete the piece standing on that position and add new object to <code>position</code> with the color of the piece, piece type and its new position</li>
+                            <li>Call the Board consturctor passing to its argument list a new <code>position</code> object</li>
+                        </ol>
+                    </p>
+                </div>
+                <div class="displayBoard">
+                    <h3 id="displayBoard">Board.displayBoard()</h3>
+                    <p>
+                        Displays the board on the browser.
+                    </p>
+                </div>
+                <div class="getPiece">
+                    <h3 id="getPiece">Board.getPiece(square)</h3>
+                    <p>
+                        Returns the piece that is placed on the given <code>square</code> or <code>null</code> if the square is empty. This method is used for <code>Legal Moves</code>
+                        component
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="gameState" id="game-state-component">
+            <h2>Game State component</h2>
+            <div class="description">
+                <h3>Description</h3>
+                <p>The gameState class represents the current state of the game, the turn, the checkmate state and other things</p>
+                <div class="properties">
+                    List of properties:
+                    <ul>
+                        <li><a href="#constructor-game-state">The constructor(<span>turn</span>)</a></li>
+                    </ul>
+                </div>
+                <div class="properties-description">
+                    <div class="constructor">
+                        <h3 id="constructor-game-state">constructor(<span>turn</span>)</h3>
+                        <p>
+                            Creates a new instance of game state class. The game State class stores the current move, the number of moves without capture or pawn movements, 
+                            the stalemate state(true or false), the checkmate state(true or false).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+</body>
+</html>

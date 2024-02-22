@@ -1,0 +1,82 @@
+body {
+    margin: 0 0;
+    font-size: 16px;
+    height: 500vh;
+}
+
+nav.sidebar-components {
+    border: solid 1px black;
+    height: 100vh;
+    width: 15vw;
+    background-color: #457b9d;
+    div.major-component {
+        font-family: Arial, sans-serif;
+        font-size: 1.9rem;
+        color: #f1faee;
+        padding-top: 20px;
+        padding-left: 5px;
+    }
+    ul.components {
+        color: #edede9;
+        list-style-type: none;
+        font-size: 1.3rem;
+        li {
+            padding-top: 20px;
+        }
+    }
+    a {
+        color: #edede9;
+        text-decoration: none;
+    }
+    position: fixed;
+}
+
+main {
+    position: absolute;
+    left: 20vw;
+    h2 {
+        color: #1d3557;
+        font-size: 1.8rem;
+        font-family: Arial, sans-serif;
+    }
+    font-family: Arial, sans-serif;
+    .board, .gameState {
+        span {
+            font-style: italic;
+            font-size: 1.3rem;
+            font-family: Helvetica, sans-serif;
+        }
+        .properties li {
+            font-size: 1.4rem;
+            margin-left: 2vw;
+            a {
+                color: black;
+                text-decoration: none;
+            }
+        }
+        .properties-description {
+            margin-top: 50px;
+            p {
+                width: 70vw;
+                margin-bottom: 4px;
+                margin-left: 50px; 
+                code {
+                    margin-left: 4px;
+                }
+                font-size: 1.2rem;
+            }
+            li {
+                code {
+                    margin-left: 4px;
+                }
+                font-size: 1.2rem;
+            }
+            code {
+                margin-left: 50px;
+            }
+            ol {
+                margin-left: 50px;
+            }
+        }
+    }
+}

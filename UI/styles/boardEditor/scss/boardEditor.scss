@@ -1,0 +1,31 @@
+div.pieces {
+    .white, .black {
+        display: flex;
+        gap: 25px;
+    }
+    margin-top: 50px;
+}
+
+.turn {
+    width: 20vw;
+    span {
+        font-family: Arial, sans-serif;
+        font-size: 1.3rem;
+        display: block;
+    }
+    label {
+        font-family: Arial, sans-serif;
+        font-size: 1.4rem;
+    }
+}
+
+.loadPosition {
+    button {
+        font-family: Arial, sans-serif;
+        font-size: 1.5rem;
+        background-color: blue;
+        color: white;
+        border: none;
+    }
+}
+

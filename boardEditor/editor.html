@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board Editor</title>
+    <script src="boardEditor.js" type="module"></script>
+    <script src="../board/board.js" type="module"></script>
+    <script src="../UI/pieces/black/blackPiece.js" type="module"></script>
+    <script src="../UI/pieces/white/whitePIece.js" type="module"></script>
+    <script src="../state/state.js" type="module"></script>
+    <script src="../notation/notation.js" type="module"></script>
+    <link rel="stylesheet" href="../UI/styles/board/css/board.css">
+    <link rel="stylesheet" href="../UI/styles/boardEditor/css/boardEditor.css">
+</head>
+<body>
+    <div class="board">
+        
+    </div>
+    
+    <div class="pieces">
+        <div class="white">
+
+        </div>
+        <div class="black">
+
+        </div>
+    </div>
+
+    <div class="settings">
+        <div class="turn">
+            <span>select the turn:</span>
+            <label>
+                white
+                <input type="radio" name="turn" id="white" value="white">
+            </label>
+            <label>
+                black
+                <input type="radio" name="turn" id="black" value="black">
+            </label>
+        </div>
+        <div class="loadPosition">
+            <button class="load">Load position</button>
+        </div>
+        <div class="loadInitial">
+            <button class="load initial">Initial Position</button>
+        </div>
+    </div>
+    <div class="notation">
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+div.board {
+    div {
+        display: flex;
+        flex-basis: 55px;
+        height: 55px;
+    }
+    div.white {
+        background-color: yellow;
+    }
+
+    div.black {
+        background-color: green;
+    }
+}

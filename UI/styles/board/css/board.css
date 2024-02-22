@@ -1,0 +1,13 @@
+div.board div {
+  display: flex;
+  flex-basis: 55px;
+  height: 55px;
+}
+div.board div.white {
+  background-color: yellow;
+}
+div.board div.black {
+  background-color: green;
+}
+
+/*# sourceMappingURL=board.css.map */
