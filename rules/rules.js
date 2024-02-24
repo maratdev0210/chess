@@ -1,3 +1,7 @@
+import {createCoords} from '../rules/coordinates.js';
+import {checkBounds} from '../rules/checkBounds.js';
+import {toSquare} from '../rules/toSquare.js';
+
 // add the rules to the game
 // the position is the matrix representation of the board
 export class Rules {
@@ -7,6 +11,7 @@ export class Rules {
         this.moves = [];         // an array of objects: {from: initial position, to: final position, piece: type of the piece}
         this.letter = this.piece.position[0].charCodeAt(0) - 97;      // make the values of letter and rank to be zero-based
         this.rank = parseInt(this.piece.position[1]) - 1;     
+        this.coords = createCoords();
     }
 
     pawnRule() {
@@ -140,36 +145,14 @@ export class Rules {
     }
 
     rookRule() {
-        let coords = [[], [], [], []];
-        for (let i = 1; i <= 7; i += 1) {
-            coords[0].push([0, i]);
-            coords[1].push([0, -i]);
-            coords[2].push([i, 0]);
-            coords[3].push([-i, 0]);
-        }
-        for (let i = 0; i < 4; i += 1) {
+        for (let i = 4; i < 8; i += 1) {
             for (let j = 0; j < 7; j += 1) {
-                
-                if (this.rank + coords[i][j][0] >= 0 && this.rank + coords[i][j][0] <= 7 && this.letter + coords[i][j][1] >= 0 && this.letter + coords[i][j][1] <= 7) {
-                    if (this.position[this.rank + coords[i][j][0]][this.letter + coords[i][j][1]] == '#') {
-                        this.moves.push(
-                            {
-                                from: this.piece.position,
-                                to: String.fromCharCode(97 + coords[i][j][1] + this.letter) + String(this.rank + coords[i][j][0] + 1),
-                                piece: 'rook',
-                                color: this.piece.color,
-                            }
-                        );
-                    } else if (this.position[this.rank + coords[i][j][0]][this.letter + coords[i][j][1]].color != this.piece.color) {
-                        this.moves.push(
-                            {
-                                from: this.piece.position,
-                                to: String.fromCharCode(97 + coords[i][j][1] + this.letter) + String(this.rank + coords[i][j][0] + 1),
-                                piece: 'rook',
-                                color: this.piece.color
-                            }
-                        );
-                        break;
+                if (checkBounds(this.coords, this.rank, this.letter, i, j)) {
+                    if (this.placePiece(i, j, this.piece) != 0) {
+                        this.moves.push(this.createMove(i, j, 'rook'));
+                    }
+                    if (this.placePiece(i, j, this.piece) == 1) {
+                        continue; 
                     } else {
                         break;
                     }
@@ -180,35 +163,14 @@ export class Rules {
     }
 
     bishopRule() {
-        let coords = [[], [], [], []];
-        for (let i = 1; i <= 7; i += 1) {
-            coords[0].push([i, i]);
-            coords[1].push([-i, -i]);
-            coords[2].push([-i, i]);
-            coords[3].push([i, -i]);
-        }
         for (let i = 0; i < 4; i += 1) {
             for (let j = 0; j < 7; j += 1) {
-                if (this.rank + coords[i][j][0] >= 0 && this.rank + coords[i][j][0] <= 7 && this.letter + coords[i][j][1] >= 0 && this.letter + coords[i][j][1] <= 7) {
-                    if (this.position[this.rank + coords[i][j][0]][this.letter + coords[i][j][1]] == '#') {
-                        this.moves.push(
-                            {
-                                from: this.piece.position,
-                                to: String.fromCharCode(97 + coords[i][j][1] + this.letter) + String(this.rank + coords[i][j][0] + 1),
-                                piece: 'bishop',
-                                color: this.piece.color
-                            }
-                        );
-                    } else if (this.position[this.rank + coords[i][j][0]][this.letter + coords[i][j][1]].color != this.piece.color) {
-                        this.moves.push(
-                            {
-                                from: this.piece.position,
-                                to: String.fromCharCode(97 + coords[i][j][1] + this.letter) + String(this.rank + coords[i][j][0] + 1),
-                                piece: 'bishop',
-                                color: this.piece.color
-                            }
-                        );
-                        break;
+                if (checkBounds(this.coords, this.rank, this.letter, i, j)) {
+                    if (this.placePiece(i, j, this.piece) != 0) {
+                        this.moves.push(this.createMove(i, j, 'bishop'));
+                    }
+                    if (this.placePiece(i, j, this.piece) == 1) {
+                        continue; 
                     } else {
                         break;
                     }
@@ -219,18 +181,10 @@ export class Rules {
     }
 
     knightRule() {
-        let coords = [[1, 2], [1, -2], [-1, 2], [-1, -2], [2, 1], [2, -1], [-2, 1], [-2, -1]]; // representation of moves along the ranks and files
-        for (let i = 0; i < 8; i += 1) {
-            if (this.rank + coords[i][0] >= 0 && this.rank + coords[i][0] <= 7 && this.letter + coords[i][1] >= 0 && this.letter + coords[i][1] <= 7) {
-                if (this.position[this.rank + coords[i][0]][this.letter + coords[i][1]].color != this.piece.color) {
-                    this.moves.push(
-                        {
-                            from: this.piece.position,
-                            to: String.fromCharCode(97 + coords[i][1] + this.letter) + String(this.rank + coords[i][0] + 1),
-                            piece: 'knight',
-                            color: this.piece.color
-                        }
-                    );
+        for (let i = 16; i < 24; i += 1) {
+            if (checkBounds(this.coords, this.rank, this.letter, i, null)) {
+                if (this.placePiece(i, null, this.piece) != 0) {
+                    this.moves.push(this.createMove(i, null, 'knight'));
                 } 
             }
         }
@@ -238,39 +192,14 @@ export class Rules {
     }
 
     queenRule() {
-        let coords = [[], [], [], [], [], [], [], []];
-        for (let i = 1; i <= 7; i += 1) {
-            coords[0].push([i, i]);
-            coords[1].push([-i, -i]);
-            coords[2].push([-i, i]);
-            coords[3].push([i, -i]);
-            coords[4].push([0, i]);
-            coords[5].push([0, -i]);
-            coords[6].push([i, 0]);
-            coords[7].push([-i, 0]);
-        }
         for (let i = 0; i < 8; i += 1) {
             for (let j = 0; j < 7; j += 1) {
-                if (this.rank + coords[i][j][0] >= 0 && this.rank + coords[i][j][0] <= 7 && this.letter + coords[i][j][1] >= 0 && this.letter + coords[i][j][1] <= 7) {
-                    if (this.position[this.rank + coords[i][j][0]][this.letter + coords[i][j][1]] == '#') {
-                        this.moves.push(
-                            {
-                                from: this.piece.position,
-                                to: String.fromCharCode(97 + coords[i][j][1] + this.letter) + String(this.rank + coords[i][j][0] + 1),
-                                piece: 'queen',
-                                color: this.piece.color,
-                            }
-                        );
-                    } else if (this.position[this.rank + coords[i][j][0]][this.letter + coords[i][j][1]].color != this.piece.color) {
-                        this.moves.push(
-                            {
-                                from: this.piece.position,
-                                to: String.fromCharCode(97 + coords[i][j][1] + this.letter) + String(this.rank + coords[i][j][0] + 1),
-                                piece: 'queen',
-                                color: this.piece.color
-                            }
-                        );
-                        break;
+                if (checkBounds(this.coords, this.rank, this.letter, i, j)) {
+                    if (this.placePiece(i, j, this.piece) != 0) {
+                        this.moves.push(this.createMove(i, j, 'queen'));
+                    }
+                    if (this.placePiece(i, j, this.piece) == 1) {
+                        continue; 
                     } else {
                         break;
                     }
@@ -281,22 +210,39 @@ export class Rules {
     }
 
     kingRule() {
-        let coords = [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]];
-        for (let i = 0; i < 8; i += 1) {
-            if (this.rank + coords[i][0] >= 0 && this.rank + coords[i][0] <= 7 && this.letter + coords[i][1] >= 0 && this.letter + coords[i][1] <= 7) {
-                if (this.position[this.rank + coords[i][0]][this.letter + coords[i][1]].color != this.piece.color) {
-                    this.moves.push(
-                        {
-                            from: this.piece.position,
-                            to: String.fromCharCode(97 + this.letter + coords[i][1]) + String(this.rank + coords[i][0] + 1),
-                            piece: 'king',
-                            color: this.piece.color
-                        }
-                    );
+        for (let i = 8; i < 16; i += 1) {
+            if (checkBounds(this.coords, this.rank, this.letter, i, null)) {
+                if (this.placePiece(i, null, this.piece) != 0) {
+                    this.moves.push(this.createMove(i, null, 'king'));
                 } 
             } 
         }
         return this.moves;
+    }
+
+    placePiece(i, j, givenPiece) {
+        let piece = null;
+        if (j != null) {
+            piece = this.position[this.rank + this.coords[i][j][0]][this.letter + this.coords[i][j][1]];
+        } else {
+            piece = this.position[this.rank + this.coords[i][0]][this.letter + this.coords[i][1]];
+        }
+        if (piece == '#') {
+            return 1;
+        } else if (piece.color != givenPiece.color) {
+            return 2;
+        }
+        return 0;
+    }
+
+    createMove(i, j, pieceName) {
+        let move = {
+            from: this.piece.position,
+            to: toSquare(this.coords, this.letter, this.rank, i, j),
+            piece: pieceName,
+            color: this.piece.color,
+        }
+        return move;
     }
 }
 
