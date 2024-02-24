@@ -6,24 +6,17 @@ export class longCastle {
         this.position = position;
         this.moves = moves;
         this.turn = turn;
-        console.log(this.turn);
         this.kingMoved = this.longSideKingMoved();
         this.rookMoved = this.longSideRookMoved();
-        console.log(this.turn);
     }
 
     canCastleD() {
-        console.log(this.kingMoved);
-        console.log(this.rookMoved);
-        console.log(this.turn);
         if (this.kingMoved == true || this.rookMoved == true) {
             return false;
         }
         
         if (this.turn == 'white') {
             let squareAttackInit = new squareAttacked(this.position, 'black');
-            console.log('d1 is ', squareAttackInit.isAttacked('d1'));
-            console.log('c1 is ', squareAttackInit.isAttacked('c1'));
             if (squareAttackInit.isAttacked('d1') == false && squareAttackInit.isAttacked('c1') == false && isSquareEmpty('d1', this.position) == true && isSquareEmpty('c1', this.position) == true && isSquareEmpty('b1', this.position) == true) {
                 return true;
             } else {
@@ -43,8 +36,6 @@ export class longCastle {
     longSideRookMoved() {
         for (let currentMove of this.moves) {
             let count = 0;
-            console.log(currentMove);
-            console.log(this.turn);
             for (let move of currentMove) {
                 if (move == '0-0-0' || move == '0-0') {
                     if (this.turn == 'white' && count == 0) {

@@ -159,7 +159,6 @@ window.addEventListener('load', () => {
         });
 
         chessBoard.addEventListener('click', (event) => {
-            console.log(board.matrix);
             let moves = new legalMoves(board.matrix, state.turn);
             let listMoves = moves.findMoves();
             // the king is checkmated
@@ -173,7 +172,6 @@ window.addEventListener('load', () => {
                 return;
             }
             //let listMoves = moves.findMoves();    // find all the valid moves excluding the checks and checkmates
-            console.log(listMoves);
             let selectedPosition = event.target;
             // get the selected square when placing the piece
             if (selectedPosition.nodeName == 'IMG') {
@@ -249,12 +247,7 @@ window.addEventListener('load', () => {
                     selectedMove = move;
                 }
             }
-            console.log(from);
-            console.log(to);
-            console.log(state.turn);
             if (isValid) {
-                console.log(notation.moves);
-                console.log(state.turn);
                 if (selectedMove.piece == 'pawn' && selectedMove.color == 'white' && parseInt(selectedMove.to[1]) == 8) {
                     promotionPieceWhite();
                     while (isPromoted == false) {
@@ -272,7 +265,6 @@ window.addEventListener('load', () => {
                                 return;
                             }
                         });
-                        //console.log('yess');
                         break;
                     }
                     if (state.turn == 'white') {
@@ -304,8 +296,6 @@ window.addEventListener('load', () => {
                         state.turn = 'white';
                     }
                 } else {
-                    console.log(state.turn);
-                    console.log(chessNotation);
                     notation.updateNotation(state.turn, selectedMove);
                     notation.displayNotation();
                     board = board.updatePosition(selectedMove);

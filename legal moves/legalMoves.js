@@ -45,7 +45,6 @@ export class legalMoves {
         } else if (piece.piece == 'rook') {
             movesWithoutChecks = moves.rookRule();
         }
-        console.log(movesWithoutChecks);
         for (let move of movesWithoutChecks) {
             let curPosition = [];
             for (let rank of this.position) {

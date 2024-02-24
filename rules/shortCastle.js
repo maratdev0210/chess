@@ -11,9 +11,6 @@ export class shortCastle {
     }
 
     canCastle() {
-        console.log(this.kingMoved);
-        console.log(this.rookMoved);
-        console.log(this.turn);
         if (this.kingMoved == true || this.rookMoved == true) {
             return false;
         }

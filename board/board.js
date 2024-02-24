@@ -76,7 +76,6 @@ class Board {
         if (index != -1) {
             newPosition.splice(index, 1);
         }
-        console.log(newPosition);
         return new Board(newPosition);
     }
 

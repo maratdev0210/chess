@@ -18,7 +18,6 @@ class Notation {
 
     displayNotation() {
         // remove the previous notation
-        console.log(this.notation);
         while (this.notation.lastChild) {
             this.notation.removeChild(this.notation.firstChild);
         }

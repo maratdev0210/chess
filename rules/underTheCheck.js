@@ -16,7 +16,6 @@ export class isUnderCheck {
                 } 
             }
         }
-        console.log(this.position);
         this.rank = parseInt(this.king[1]) - 1;
         this.letter = this.king[0].charCodeAt(0) - 97;
         this.attacking = [];
