@@ -9,6 +9,8 @@ import {Notation} from '../notation/notation.js';
 import {initialPosition} from '../boardEditor/initialPosition.js';
 import {isUnderCheck} from '../rules/underTheCheck.js';
 import {Stalemate} from '../rules/stalemate.js';
+import {shortCastle } from '../rules/shortCastle.js';
+import {longCastle } from '../rules/longCastle.js';
 
 const root = document.querySelector('body');
 const chessBoard = document.querySelector('.board');
@@ -26,6 +28,9 @@ let isPromoted = false;
 let chessNotation = document.querySelector('.notation');
 let notation = null;
 let isInitial = null;
+let shortCastleInit = null;
+let longCastleInit = null;
+
 
 // returns the list of options for promoted pawn
 function promotionPieceWhite() {
@@ -184,6 +189,61 @@ window.addEventListener('load', () => {
             let isValid = false;
             let from = selectedPiece.position;
             let to = selectedPosition;
+            // check if castling is possible
+            if (selectedPiece.piece == 'king') {
+                shortCastleInit = new shortCastle(board.matrix, notation.moves, state.turn);
+                longCastleInit = new longCastle(board.matrix, notation.moves, state.turn);
+                console.log(state.turn);
+                if (state.turn == 'white') {
+                    if (to == 'g1') {
+                        console.log(notation.moves);
+                        if (shortCastleInit.canCastle()) {
+                            notation.updateNotation(state.turn, '0-0');
+                            notation.displayNotation();
+                            board = board.updatePosition({from: 'e1', to: 'g1', piece: 'king', color: 'white'});
+                            board = board.updatePosition({from: 'h1', to: 'f1', piece: 'rook', color: 'white'});
+                            board.displayBoard();
+                            state.turn = 'black';
+                            return;
+                        }
+                    } else if (to == 'c1') {
+                        console.log(notation.moves);
+                        console.log(state.turn);
+                        if (longCastleInit.canCastleD()) {
+                            notation.updateNotation(state.turn, '0-0-0');
+                            notation.displayNotation();
+                            board = board.updatePosition({from: 'e1', to: 'c1', piece: 'king', color: 'white'});
+                            board = board.updatePosition({from: 'a1', to: 'd1', piece: 'rook', color: 'white'});
+                            board.displayBoard();
+                            state.turn = 'black';
+                            return;
+                        }
+                    }
+                } else if (state.turn == 'black') {
+                    if (to == 'g8') {
+                        console.log(notation.moves);
+                        if (shortCastleInit.canCastle()) {
+                            notation.updateNotation(state.turn, '0-0');
+                            notation.displayNotation();
+                            board = board.updatePosition({from: 'e8', to: 'g8', piece: 'king', color: 'black'});
+                            board = board.updatePosition({from: 'h8', to: 'f8', piece: 'rook', color: 'black'});
+                            board.displayBoard();
+                            state.turn = 'white';
+                            return;
+                        }
+                    } else if (to == 'c8') {
+                        if (longCastleInit.canCastleD()) {
+                            notation.updateNotation(state.turn, '0-0-0');
+                            notation.displayNotation();
+                            board = board.updatePosition({from: 'e8', to: 'c8', piece: 'king', color: 'black'});
+                            board = board.updatePosition({from: 'a8', to: 'd8', piece: 'rook', color: 'black'});
+                            board.displayBoard();
+                            state.turn = 'white';
+                            return;
+                        }
+                    }
+                }
+            }
             let selectedMove = null;
             for (let move of listMoves) {
                 if (move.from == from && move.to == to && move.piece == selectedPiece.piece) {
