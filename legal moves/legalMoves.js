@@ -10,127 +10,67 @@ export class legalMoves {
         this.legalMoves = [];
         this.allMoves = [];
     }
+
+    addAllMoves(piece) {
+        let moves = new Rules(this.position, piece);
+        if (piece.piece == 'pawn') {
+            this.allMoves.push(moves.pawnRule());
+        } else if (piece.piece == 'knight') {
+            this.allMoves.push(moves.knightRule());
+        } else if (piece.piece == 'bishop') {
+            this.allMoves.push(moves.bishopRule());
+        } else if (piece.piece == 'queen') {
+            this.allMoves.push(moves.queenRule());
+        } else if (piece.piece == 'king') {
+            this.allMoves.push(moves.kingRule());
+        } else if (piece.piece == 'rook') {
+            this.allMoves.push(moves.rookRule());
+        } 
+        this.allMoves = this.allMoves.flat();
+    }
+
+    addMoves(piece) {
+        let moves = new Rules(this.position, piece);
+        let movesWithoutChecks = null;
+        if (piece.piece == 'pawn') {
+            movesWithoutChecks = moves.pawnRule();
+        } else if (piece.piece == 'knight') {
+            movesWithoutChecks = moves.knightRule();
+        } else if (piece.piece == 'bishop') {
+            movesWithoutChecks = moves.bishopRule();
+        } else if (piece.piece == 'queen') {
+            movesWithoutChecks = moves.queenRule();
+        } else if (piece.piece == 'king') {
+            movesWithoutChecks = moves.kingRule();
+        } else if (piece.piece == 'rook') {
+            movesWithoutChecks = moves.rookRule();
+        }
+        console.log(movesWithoutChecks);
+        for (let move of movesWithoutChecks) {
+            let curPosition = [];
+            for (let rank of this.position) {
+                for (let piece of rank) {
+                    if (piece != '#') {
+                        curPosition.push(piece);
+                    }
+                }
+            }
+            let currentPosition = new Board(curPosition);
+            let newPosition = currentPosition.updatePosition(move);
+            let isKingChecked = new isUnderCheck(newPosition.matrix, this.turn);
+            if (isKingChecked.countSquares().length == 0) {
+                this.legalMoves.push(move);
+            }
+        }
+        return;
+    }
+
     findMoves() {
         for (let rank of this.position) {
             // returns the piece of the current position
             for (let piece of rank) {
                 if (piece.color == this.turn) {
-                    if (piece.piece == 'pawn') {
-                        let moves = new Rules(this.position, piece);
-                        let movesWithoutChecks = moves.pawnRule();
-                        for (let move of movesWithoutChecks) {
-                            let curPosition = [];
-                            for (let rank of this.position) {
-                                for (let piece of rank) {
-                                    if (piece != '#') {
-                                        curPosition.push(piece);
-                                    }
-                                }
-                            }
-                            let currentPosition = new Board(curPosition);
-                            let newPosition = currentPosition.updatePosition(move);
-                            let isKingChecked = new isUnderCheck(newPosition.matrix, this.turn);
-                            if (isKingChecked.countSquares().length == 0) {
-                                this.legalMoves.push(move);
-                            }
-                        }
-                    } else if (piece.piece == 'knight') {
-                        let moves = new Rules(this.position, piece);
-                        let movesWithoutChecks = moves.knightRule();
-                        for (let move of movesWithoutChecks) {
-                            console.log(move);
-                            let curPosition = [];
-                            for (let rank of this.position) {
-                                for (let piece of rank) {
-                                    if (piece != '#') {
-                                        curPosition.push(piece);
-                                    }
-                                }
-                            }
-                            let currentPosition = new Board(curPosition);
-                            let newPosition = currentPosition.updatePosition(move);
-                            let isKingChecked = new isUnderCheck(newPosition.matrix, this.turn);
-                            if (isKingChecked.countSquares().length == 0) {
-                                this.legalMoves.push(move);
-                            }
-                        }
-                    } else if (piece.piece == 'king') {
-                        let moves = new Rules(this.position, piece);
-                        let movesWithoutChecks = moves.kingRule();
-                        for (let move of movesWithoutChecks) {
-                            let curPosition = [];
-                            for (let rank of this.position) {
-                                for (let piece of rank) {
-                                    if (piece != '#') {
-                                        curPosition.push(piece);
-                                    }
-                                }
-                            }
-                            let currentPosition = new Board(curPosition);
-                            let newPosition = currentPosition.updatePosition(move);
-                            let isKingChecked = new isUnderCheck(newPosition.matrix, this.turn);
-                            if (isKingChecked.countSquares().length == 0) {
-                                this.legalMoves.push(move);
-                            }
-                        }
-                    }  else if (piece.piece == 'bishop') {
-                        let moves = new Rules(this.position, piece);
-                        let movesWithoutChecks = moves.bishopRule();
-                        for (let move of movesWithoutChecks) {
-                            let curPosition = [];
-                            for (let rank of this.position) {
-                                for (let piece of rank) {
-                                    if (piece != '#') {
-                                        curPosition.push(piece);
-                                    }
-                                }
-                            }
-                            let currentPosition = new Board(curPosition);
-                            let newPosition = currentPosition.updatePosition(move);
-                            let isKingChecked = new isUnderCheck(newPosition.matrix, this.turn);
-                            if (isKingChecked.countSquares().length == 0) {
-                                this.legalMoves.push(move);
-                            }
-                        }
-                    } else if (piece.piece == 'rook') {
-                        let moves = new Rules(this.position, piece);
-                        let movesWithoutChecks = moves.rookRule();
-                        for (let move of movesWithoutChecks) {
-                            let curPosition = [];
-                            for (let rank of this.position) {
-                                for (let piece of rank) {
-                                    if (piece != '#') {
-                                        curPosition.push(piece);
-                                    }
-                                }
-                            }
-                            let currentPosition = new Board(curPosition);
-                            let newPosition = currentPosition.updatePosition(move);
-                            let isKingChecked = new isUnderCheck(newPosition.matrix, this.turn);
-                            if (isKingChecked.countSquares().length == 0) {
-                                this.legalMoves.push(move);
-                            }
-                        }
-                    } else if (piece.piece == 'queen') {
-                        let moves = new Rules(this.position, piece);
-                        let movesWithoutChecks = moves.queenRule();
-                        for (let move of movesWithoutChecks) {
-                            let curPosition = [];
-                            for (let rank of this.position) {
-                                for (let piece of rank) {
-                                    if (piece != '#') {
-                                        curPosition.push(piece);
-                                    }
-                                }
-                            }
-                            let currentPosition = new Board(curPosition);
-                            let newPosition = currentPosition.updatePosition(move);
-                            let isKingChecked = new isUnderCheck(newPosition.matrix, this.turn);
-                            if (isKingChecked.countSquares().length == 0) {
-                                this.legalMoves.push(move);
-                            }
-                        }
-                    } 
+                    this.addMoves(piece);
                 } 
             }
         }
@@ -142,31 +82,7 @@ export class legalMoves {
             // returns the piece of the current position
             for (let piece of rank) {
                 if (piece.color == this.turn) {
-                    if (piece.piece == 'pawn') {
-                        let moves = new Rules(this.position, piece);
-                        this.allMoves.push(moves.pawnRule());
-                        this.allMoves = this.allMoves.flat();    
-                    } else if (piece.piece == 'knight') {
-                        let moves = new Rules(this.position, piece);
-                        this.allMoves.push(moves.knightRule());
-                        this.allMoves = this.allMoves.flat();
-                    } else if (piece.piece == 'king') {
-                        let moves = new Rules(this.position, piece);
-                        this.allMoves.push(moves.kingRule());
-                        this.allMoves = this.allMoves.flat();
-                    } else if (piece.piece == 'bishop') {
-                        let moves = new Rules(this.position, piece);
-                        this.allMoves.push(moves.bishopRule());
-                        this.allMoves = this.allMoves.flat();
-                    } else if (piece.piece == 'rook') {
-                        let moves = new Rules(this.position, piece);
-                        this.allMoves.push(moves.rookRule());
-                        this.allMoves = this.allMoves.flat();
-                    } else if (piece.piece == 'queen') {
-                        let moves = new Rules(this.position, piece);
-                        this.allMoves.push(moves.queenRule());
-                        this.allMoves = this.allMoves.flat();
-                    }
+                    this.addAllMoves(piece);
                 }
             }
         }
