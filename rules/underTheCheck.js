@@ -2,7 +2,7 @@ import {Rules} from '../rules/rules.js';
 import {legalMoves} from '../legal moves/legalMoves.js';
 
 // class that checks whether the king is under the check or not
-class isUnderCheck {
+export class isUnderCheck {
     constructor(position, turn) {
         this.position = position;
         this.turn = turn;
@@ -45,8 +45,6 @@ class isUnderCheck {
         return this.attacking;
     }
 }
-
-export {isUnderCheck};
 
 
 

@@ -1,4 +1,4 @@
-class gameState {
+export class gameState {
     constructor(turn) {
         this.turn = turn;
         this.moves = 0;        // 50-move rule 
@@ -22,5 +22,3 @@ class gameState {
         this.stalemate = value;
     }
 }
-
-export {gameState};

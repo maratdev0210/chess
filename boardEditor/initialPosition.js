@@ -1,5 +1,4 @@
-
-function initialPosition() {
+export function initialPosition() {
     let position = [
         {
             piece: 'pawn',
@@ -165,5 +164,3 @@ function initialPosition() {
     
     return position;
 }
-
-export {initialPosition};

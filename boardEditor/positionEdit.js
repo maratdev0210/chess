@@ -1,6 +1,6 @@
 // Creates the position from the given board using DOM 
 
-function createPosition(board) {
+export function createPosition(board) {
     let ranks = board.childNodes;
     let position = [];
     for (let rank = 1; rank <= 8; rank += 1) {
@@ -18,5 +18,3 @@ function createPosition(board) {
     }
     return position;
 }
-
-export {createPosition};

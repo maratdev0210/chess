@@ -1,29 +1,6 @@
 import {blackPieces} from "../UI/pieces/black/blackPiece.js";
 import {whitePieces} from "../UI/pieces/white/whitePiece.js";
-
-let positionX = [
-    {
-        color: 'white',
-        piece: 'pawn',
-        position: 'a2'
-    },
-    {
-        color: 'white',
-        piece: 'rook',
-        position: 'a1',
-    },
-    {
-        color: 'black',
-        piece: 'pawn',
-        position: 'a5',
-    },
-    {
-        color: 'black',
-        piece: 'king',
-        position: 'e8',
-    }
-];
-
+import {currentSquare} from "../board/currentSquare.js";
 
 class Board {
     constructor(position) {
@@ -32,8 +9,7 @@ class Board {
         for (let rank = 1; rank <= 8; rank += 1) {
             let row = [];
             for (let file = 1; file <= 8; file += 1) {
-                let fileLetter = String.fromCharCode(96 + file);
-                let currentPosition = fileLetter + String(rank);
+                let currentPosition = currentSquare(file, rank);
                 if (this.getPiece(currentPosition) !== null) {
                     row.push(this.getPiece(currentPosition));
                 } else {
@@ -52,8 +28,7 @@ class Board {
         for (let rank = 8; rank >= 1; rank -= 1) {
             let currentRank = document.createElement('div');
             for (let file = 1; file <= 8; file += 1) {
-                let fileLetter = String.fromCharCode(96 + file);
-                let currentPosition = fileLetter + String(rank);
+                let currentPosition = currentSquare(file, rank);
                 let chessPiece = this.getPiece(currentPosition);
                 let squareColor = (rank + file) % 2 == 1 ? 'white' : 'black';
                 let square = document.createElement('div');
@@ -116,10 +91,6 @@ class Board {
             }
         }
         return new Board(newPosition);
-    }
-
-    getPreviousPosition() {
-
     }
 
     getPiece(square) {

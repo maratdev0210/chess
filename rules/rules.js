@@ -1,6 +1,6 @@
 // add the rules to the game
 // the position is the matrix representation of the board
-class Rules {
+export class Rules {
     constructor(position, piece) {
         this.position = position;
         this.piece = piece;
@@ -301,4 +301,3 @@ class Rules {
 }
 
 // from a given position, describe the rules for a given piece
-export {Rules};

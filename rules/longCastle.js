@@ -1,8 +1,7 @@
 import {squareAttacked} from '../rules/squareAttacked.js';
 import {isSquareEmpty} from '../rules/isSquareEmpty.js';
 
-
-class longCastle {
+export class longCastle {
     constructor(position, moves, turn) {
         this.position = position;
         this.moves = moves;
@@ -105,5 +104,3 @@ class longCastle {
         return false;
     }
 }
-
-export {longCastle};

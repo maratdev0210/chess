@@ -1,6 +1,5 @@
 // check if the given square is empty or if there is a piece standing there
-
-function isSquareEmpty(square, position) {
+export function isSquareEmpty(square, position) {
     for (let rank of position) {
         for (let piece of rank) {
             if (piece == '#') {
@@ -13,5 +12,3 @@ function isSquareEmpty(square, position) {
     }
     return true;
 }
-
-export {isSquareEmpty};

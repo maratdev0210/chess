@@ -1,7 +1,7 @@
 import {squareAttacked} from '../rules/squareAttacked.js';
 import {isSquareEmpty} from '../rules/isSquareEmpty.js';
 
-class shortCastle {
+export class shortCastle {
     constructor(position, moves, turn) {
         this.position = position;
         this.moves = moves;
@@ -97,5 +97,3 @@ class shortCastle {
         return false;
     }
 }
-
-export {shortCastle};

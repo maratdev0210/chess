@@ -3,14 +3,13 @@ import {blackPieces} from '../UI/pieces/black/blackPiece.js';
 import {gameState} from '../state/state.js';
 import {createPosition} from './positionEdit.js';
 import {Board} from '../board/board.js';
-import {Rules} from '../rules/rules.js';
 import {legalMoves} from '../legal moves/legalMoves.js';
 import {Notation} from '../notation/notation.js';
 import {initialPosition} from '../boardEditor/initialPosition.js';
-import {isUnderCheck} from '../rules/underTheCheck.js';
 import {Stalemate} from '../rules/stalemate.js';
 import {shortCastle } from '../rules/shortCastle.js';
 import {longCastle } from '../rules/longCastle.js';
+import {currentSquare } from '../board/currentSquare.js';
 
 const root = document.querySelector('body');
 const chessBoard = document.querySelector('.board');
@@ -73,8 +72,7 @@ window.addEventListener('load', () => {
     for (let rank = 8; rank >= 1; rank -= 1) {
         let row = document.createElement('div');
         for (let file = 1; file <= 8; file += 1) {
-            let fileLetter = String.fromCharCode(96 + file);
-            let currentPosition = fileLetter + String(rank);
+            let currentPosition = currentSquare(file, rank);
             let square = document.createElement('div');
             let squareColor = (rank + file) % 2 == 1 ? 'white' : 'black';
             square.classList.add(squareColor);

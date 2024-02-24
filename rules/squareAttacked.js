@@ -1,7 +1,7 @@
 import {legalMoves} from '../legal moves/legalMoves.js';
 
 // check if the square is attacked by the pieces
-class squareAttacked {
+export class squareAttacked {
     constructor(position, turn) {
         this.position = position;
         this.turn = turn;
@@ -19,5 +19,3 @@ class squareAttacked {
         return false;
     }
 }
-
-export {squareAttacked};

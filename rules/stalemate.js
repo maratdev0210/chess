@@ -1,6 +1,6 @@
 import {legalMoves} from '../legal moves/legalMoves.js';
 
-class Stalemate {
+export class Stalemate {
     constructor(position, turn) {
         this.position = position;
         this.turn = turn;
@@ -45,4 +45,3 @@ class Stalemate {
 }
 
 // the position if stalemated if under the current position the king is not under the check
-export {Stalemate};
