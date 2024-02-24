@@ -15,129 +15,25 @@ export class Rules {
     }
 
     pawnRule() {
-        if (this.piece.color == 'white') {
-            if (this.rank + 1 == 2) {
-                // if the pawn is on the second rank it can move either one square up or two squares up
-                for (let i = 1; i <= 2; i += 1) {
-                    if (this.position[this.rank + i][this.letter] == '#') {
-                        this.moves.push(
-                            {
-                                from: this.piece.position,
-                                to: this.piece.position[0] + String(this.rank + i + 1),
-                                piece: 'pawn', 
-                                color: this.piece.color
-                            }
-                        );
-                    } else {
-                        break;
-                    }
+        // white pawn moves
+        for (let i = 24; i < 28; i += 1) {
+            if (checkBounds(this.coords, this.rank, this.letter, i, null) && this.piece.color == 'white') {
+                if (i == 24 && this.rank + 1 != 2) {
+                    continue;
                 }
-            } else {
-                if (this.position[this.rank + 1][this.letter] == '#') {
-                    this.moves.push(
-                        {
-                            from: this.piece.position,
-                            to: this.piece.position[0] + String(this.rank + 2),
-                            piece: 'pawn',
-                            color: this.piece.color,
-                        }
-                    );
+                if (this.placePiece(i, null, this.piece) != 0) {
+                    this.moves.push(this.createMove(i, null, 'pawn'));
                 }
             }
-            // capturing the other pieces
-            if (this.letter == 0) {
-                // if the pawn is on a-file
-                if (this.position[this.rank + 1][this.letter + 1] != '#' && this.position[this.rank + 1][this.letter + 1].color != this.piece.color) {
-                    this.moves.push({
-                        from: this.piece.position,
-                        to: 'b' + String(this.rank + 2),
-                        piece: 'pawn',
-                        color: this.piece.color,
-                    });
+        }
+        // black pawn moves
+        for (let i = 28; i < 32; i += 1) {
+            if (checkBounds(this.coords, this.rank, this.letter, i, null) && this.piece.color == 'black') {
+                if (i == 28 && this.rank + 1 != 7) {
+                    continue;
                 }
-            } else if (this.letter == 7) {
-                // if the pawn is on h-file 
-                if (this.position[this.rank + 1][this.letter - 1] != '#' && this.position[this.rank + 1][this.letter - 1].color != this.piece.color) {
-                    this.moves.push({
-                        from: this.piece.position, 
-                        to: 'g' + String(this.rank + 2),
-                        piece: 'pawn',
-                        color: this.piece.color,
-                    });
-                }
-            } else {
-                // if the pawn is between b-file and g-file 
-                for (let i = -1; i <= 1; i += 2) {
-                    if (this.position[this.rank + 1][this.letter + i] != '#' && this.position[this.rank + 1][this.letter + i].color != this.piece.color) {
-                        this.moves.push({
-                            from: this.piece.position, 
-                            to: String.fromCharCode(97 + this.letter + i) + String(this.rank + 2),
-                            piece: 'pawn',
-                            color: this.piece.color,
-                        });
-                    }
-                }
-            }
-        } else {
-            if (this.rank + 1 == 7) {
-                // if the pawn is on the 7th rank it can move either one square down or two squares down
-                for (let i = 1; i <= 2; i += 1) {
-                    if (this.position[this.rank - i][this.letter] == '#') {
-                        this.moves.push(
-                            {
-                                from: this.piece.position,
-                                to: this.piece.position[0] + String(this.rank - i + 1),
-                                piece: 'pawn',
-                                color: this.piece.color,
-                            }
-                        );
-                    } else {
-                        break;
-                    }
-                }
-            } else {
-                if (this.position[this.rank - 1][this.letter] == '#') {
-                    this.moves.push(
-                        {
-                            from: this.piece.position, 
-                            to: this.piece.position[0] + String(this.rank),
-                            piece: 'pawn',
-                            color: this.piece.color,
-                        }
-                    );
-                }
-            }
-            if (this.letter == 0) {
-                // if the pawn is on a-file
-                if (this.position[this.rank - 1][this.letter + 1] != '#' && this.position[this.rank - 1][this.letter + 1].color != this.piece.color) {
-                    this.moves.push({
-                        from: this.piece.position,
-                        to: 'b' + String(this.rank),
-                        piece: 'pawn',
-                        color: this.piece.color,
-                    });
-                }
-            } else if (this.letter == 7) {
-                // if the pawn is on h-file 
-                if (this.position[this.rank - 1][this.letter - 1] != '#' && this.position[this.rank - 1][this.letter - 1].color != this.piece.color) {
-                    this.moves.push({
-                        from: this.piece.position, 
-                        to: 'g' + String(this.rank),
-                        piece: 'pawn',
-                        color: this.piece.color,
-                    });
-                }
-            } else {
-                // if the pawn is between b-file and g-file 
-                for (let i = -1; i <= 1; i += 2) {
-                    if (this.position[this.rank - 1][this.letter + i] != '#' && this.position[this.rank - 1][this.letter + i].color != this.piece.color) {
-                        this.moves.push({
-                            from: this.piece.position, 
-                            to: String.fromCharCode(97 + this.letter + i) + String(this.rank),
-                            piece: 'pawn',
-                            color: this.piece.color,
-                        });
-                    }
+                if (this.placePiece(i, null, this.piece) != 0) {
+                    this.moves.push(this.createMove(i, null, 'pawn'));
                 }
             }
         }

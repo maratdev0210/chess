@@ -1,6 +1,6 @@
 // create the object of all the coordinates, used for queen moves, rook moves, bishop moves, and knight moves
 export function createCoords() {
-    let coords = [[], [], [], [], [], [], [], [], [-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [1, 2], [1, -2], [-1, 2], [-1, -2], [2, 1], [2, -1], [-2, 1], [-2, -1]];
+    let coords = [[], [], [], [], [], [], [], [], [-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [1, 2], [1, -2], [-1, 2], [-1, -2], [2, 1], [2, -1], [-2, 1], [-2, -1], [2, 0], [1, 0], [1, 1], [1, -1], [-2, 0], [-1, 0], [-1, -1], [-1, 1]];
     // first four coords rules for bishop
     // the next four coords rules for rook
     for (let i = 1; i <= 7; i += 1) {
