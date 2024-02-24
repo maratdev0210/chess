@@ -21,6 +21,12 @@ export class Rules {
                 if (i == 24 && this.rank + 1 != 2) {
                     continue;
                 }
+                if (this.placePiece(i, null, this.piece) == 2 && (i == 24 || i == 25)) {
+                    continue;
+                }
+                if (this.placePiece(i, null, this.piece) == 1 && (i == 26 || i == 27)) {
+                    continue;
+                }
                 if (this.placePiece(i, null, this.piece) != 0) {
                     this.moves.push(this.createMove(i, null, 'pawn'));
                 }
@@ -30,6 +36,12 @@ export class Rules {
         for (let i = 28; i < 32; i += 1) {
             if (checkBounds(this.coords, this.rank, this.letter, i, null) && this.piece.color == 'black') {
                 if (i == 28 && this.rank + 1 != 7) {
+                    continue;
+                }
+                if (this.placePiece(i, null, this.piece) == 2 && (i == 28 || i == 29)) {
+                    continue;
+                }
+                if (this.placePiece(i, null, this.piece) == 1 && (i == 30 || i == 31)) {
                     continue;
                 }
                 if (this.placePiece(i, null, this.piece) != 0) {
